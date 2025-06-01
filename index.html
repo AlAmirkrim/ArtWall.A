@@ -1,0 +1,1019 @@
+<!-- Index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArtWall.A</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="unified-styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+  <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+  <!-- تضمين وحدة المعرض الموحدة -->
+  <script src="unified-gallery-components.js"></script>
+  <style>
+    /* تنسيقات خاصة لقائمة اللغة المنسدلة - للصفحة الرئيسية فقط */
+    .language-dropdown-content {
+      position: absolute !important;
+      top: 100% !important;
+      right: 0 !important;
+      background: rgba(26, 11, 32, 0.95) !important;
+      border-radius: 8px !important;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4) !important;
+      z-index: 1000 !important;
+      padding: 8px 0 !important;
+      min-width: 140px !important;
+      margin-top: 3px !important;
+      border: 1px solid rgba(177, 76, 200, 0.3) !important;
+    }
+    
+    /* تنسيقات لتذييل المودال (روابط التبديل بين تسجيل الدخول وإنشاء الحساب) */
+    .modal-footer {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(177, 76, 200, 0.3);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    
+    .modal-footer a {
+      color: #b14cc8;
+      text-decoration: none;
+      margin-left: 5px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .modal-footer a:hover {
+      color: #00e6ff;
+      text-decoration: underline;
+    }
+    
+    html[dir="rtl"] .modal-footer a {
+      margin-left: 0;
+      margin-right: 5px;
+    }
+    
+    /* العنصر ظاهر عندما يتم إضافة فئة "show" */
+    .language-dropdown-content.show {
+      display: block !important;
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+    
+    /* تصميم الهيدر الثابت بارتفاع محدد */
+    header.fixed-header {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      height: 60px !important;
+      min-height: 60px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border-top: 0 !important;
+      box-sizing: border-box !important;
+      z-index: 1000 !important;
+      background: linear-gradient(90deg, #0d000d, #330033) !important;
+      display: flex !important;
+      align-items: center !important;
+      overflow: visible !important;
+      /* إزالة الظل */
+    }
+    
+    /* تصميم شريط التنقل (القائمة) */
+    .nav-container {
+      position: fixed;
+      top: 60px; /* تعديل ليبدأ مباشرة بعد الهيدر بدون فراغ */
+      left: 0;
+      right: 0;
+      width: 100%;
+      background: linear-gradient(90deg, #0d000d, #330033);
+      z-index: 999;
+      padding: 5px 0;
+      border: none !important; /* إزالة أي حدود */
+      border-top: none !important; /* تأكيد إزالة الحد العلوي */
+      box-shadow: none !important; /* إزالة أي ظلال */
+    }
+    
+    /* تصميم حاوية التنقل الداخلية للتحكم بالعرض الأقصى */
+    .nav-inner-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+    
+    /* تصميم قسم التنقل - محاذاة لليمين دائمًا */
+    .navigation {
+      display: block;
+      width: 100%;
+      text-align: right;
+      padding-right: 15px;
+      direction: ltr;
+    }
+    
+    /* تصميم قائمة التنقل */
+    #nav-list {
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      float: right;
+      max-height: 120px;
+      overflow-y: auto;
+      direction: rtl;
+    }
+    
+    /* تصميم عناصر القائمة - تم تقليل المسافات */
+    #nav-list li {
+      display: inline-block;
+      margin: 0 1px; /* تقليل المسافة بين عناصر القائمة */
+    }
+    
+    /* تصميم أزرار التنقل */
+    .nav-btn {
+      padding: 6px 12px !important;
+      font-size: 0.85rem !important;
+      border-radius: 4px !important;
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
+      border: none !important;
+      transition: all 0.3s ease !important;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .nav-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      transform: translateY(-2px) !important;
+    }
+    
+    /* تم نقل تنسيقات زر اللغة إلى ملف language-dropdown.css */
+    
+    /* تصميم شريط التنقل في اللغة العربية */
+    html[dir="rtl"] .nav-container nav {
+      text-align: left;
+      padding-left: 15px;
+      padding-right: 0;
+    }
+    
+    /* تصميم المنطقة الرئيسية للمحتوى */
+    .hero {
+      margin-top: 100px !important; /* تعديل المسافة العلوية لتناسب الهيدر وشريط التنقل كجزء واحد */
+      padding-top: 10px !important;
+      margin-bottom: 85px !important; /* مسافة من الأسفل */
+    }
+    
+    /* تعديل خاص للشاشات الصغيرة */
+    @media (max-width: 768px) {
+      #nav-list {
+        justify-content: center;
+        float: none;
+      }
+  /* هنا قاعدة جديدة للهيرو في الشاشات الصغيرة */
+  .hero {
+    margin-top: 70px !important;  /* تعديل المسافة العلوية للشاشات الصغيرة */
+    margin-bottom: 95px !important; /* مسافة من الأسفل */
+  }
+    }
+    
+    /* إلغاء تأثيرات RTL */
+    html[dir="rtl"] .navigation ul {
+      flex-direction: row !important;
+    }
+    
+    /* تنسيق اسم الموقع */
+    .site-name {
+      background: linear-gradient(90deg, #b14cc8, #4CAF50, #00e6ff) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      color: transparent !important;
+    }
+    
+    /* تم حذف تعريفات زر اللغة الجديد واستبدالها بتعريفات من simple-gallery.html */
+    
+    /* تثبيت الشعار واسم المستخدم على اليسار دائمًا */
+    .logo-user-section {
+      position: absolute;
+      left: 15px;
+      display: flex;
+      align-items: center;
+      direction: ltr;
+    }
+    
+    /* تصميم حاوية الشعار */
+    .site-logo-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      direction: ltr;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- الهيدر الثابت في أعلى الصفحة -->
+  <header class="fixed-header">
+    <div class="header-content">
+      <!-- شعار الموقع واسمه - مثبت في اليسار دائمًا -->
+      <div class="logo-user-section">
+        <div class="site-logo-container">
+          <img class="stimglogo" src="Imges/Leonardo_Anime_XL_A_futuristic_and_modern_logo_design_suitable_1 (1).jpg"
+            alt="website logo" />
+          <h1 class="site-name">ArtWall.A</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- شريط التنقل المنفصل بعد الهيدر مباشرة -->
+  <div class="nav-container">
+    <div class="nav-inner-container">
+      <!-- حاوية الأزرار محاذاة لليمين دائمًا -->
+      <nav class="navigation">
+        <ul id="nav-list">
+          <li><a href="#" onclick="window.checkAuthAndRedirect('simple-gallery.html'); return false;" class="nav-btn"
+              data-i18n="start">Start</a></li>
+          <li><a href="#communication" class="nav-btn" data-i18n="communication">Communication</a></li>
+          <li class="auth-buttons">
+            <button class="nav-btn" onclick="event.preventDefault(); document.getElementById('signin-modal').style.display='block'"
+              data-i18n="signIn">Sign In</button>
+          </li>
+          <li class="auth-buttons">
+            <button class="nav-btn" onclick="event.preventDefault(); document.getElementById('signup-modal').style.display='block'"
+              data-i18n="signUp">Sign Up</button>
+          </li>
+          <!-- زر اللغة المحسن -->
+          <li class="language-btn-container-new">
+            <style>
+              /* أنماط خاصة بزر اللغة الجديد في الصفحة الرئيسية */
+              .language-btn-container-new {
+                position: relative;
+                display: inline-block;
+                margin-left: 8px;
+                width: auto; /* إعادة ضبط العرض بدلاً من أخذ كامل المساحة */
+              }
+              .lang-switcher-new {
+                display: flex;
+                align-items: center;
+                padding: 6px 10px; /* تقليل التباعد الداخلي */
+                height: 28px; /* تقليل الارتفاع */
+                background: linear-gradient(135deg, rgba(177, 76, 200, 0.7), rgba(0, 230, 255, 0.5));
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 4px;
+                color: white;
+                cursor: pointer;
+                font-size: 0.8rem; /* تصغير حجم الخط */
+                transition: all 0.3s ease;
+                text-decoration: none;
+                box-sizing: border-box;
+                margin-top: 0;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                font-weight: 500;
+                width: auto; /* جعل العرض مناسب للمحتوى وليس عرض كامل */
+                white-space: nowrap; /* منع التفاف النص */
+              }
+              .lang-switcher-new:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                background: linear-gradient(135deg, rgba(177, 76, 200, 0.9), rgba(0, 230, 255, 0.7));
+                border-color: rgba(255, 255, 255, 0.2);
+              }
+              .lang-switcher-new:active {
+                transform: translateY(1px);
+                box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+              }
+              #newLanguageMenu {
+                display: none;
+                position: fixed;
+                margin-top: 10px;
+                right: auto;
+                background: rgba(26, 11, 32, 0.95); /* خلفية أكثر شفافية قليلاً */
+                width: 100px; /* تصغير العرض من 180px إلى 160px */
+                border-radius: 10px; /* تصغير نصف قطر الحواف */
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(177, 76, 200, 0.2); /* تصغير الظلال */
+                z-index: 9999;
+                border: 1px solid rgba(177, 76, 200, 0.4); /* تقليل سمك الحدود وزيادة شفافيتها */
+                padding: 0;
+                overflow: visible;
+                animation: fadeIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                backdrop-filter: blur(8px); /* تقليل تأثير التمويه */
+                -webkit-backdrop-filter: blur(8px);
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+                will-change: transform, opacity;
+              }
+              @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+              /* تأثير توهج بالخلفية عند العرض - بحجم أكبر قليلاً من القائمة */
+              #newLanguageMenu::before {
+                content: '';
+                position: absolute;
+                top: -15px;
+                left: -15px;
+                right: -15px;
+                bottom: -15px;
+                background: radial-gradient(circle at center, rgba(177, 76, 200, 0.25), transparent 70%);
+                pointer-events: none;
+                z-index: -1;
+                border-radius: 20px;
+                animation: glowPulse 3s infinite alternate;
+              }
+              
+              /* تأثير خلفية التدرج المتحركة */
+              #newLanguageMenu::after {
+                content: '';
+                position: absolute;
+                top: -20px;
+                left: -20px;
+                right: -20px;
+                bottom: -20px;
+                background: linear-gradient(
+                  217deg, 
+                  rgba(177, 76, 200, 0.08), 
+                  rgba(177, 76, 200, 0) 70%
+                ),
+                linear-gradient(
+                  127deg, 
+                  rgba(0, 230, 255, 0.09), 
+                  rgba(0, 230, 255, 0) 70%
+                ),
+                linear-gradient(
+                  336deg, 
+                  rgba(176, 38, 255, 0.08), 
+                  rgba(176, 38, 255, 0) 70%
+                );
+                z-index: -2;
+                border-radius: 25px;
+                transform-origin: center;
+                animation: gradientMove 8s ease infinite;
+              }
+              
+              @keyframes glowPulse {
+                0% { opacity: 0.4; }
+                100% { opacity: 0.7; }
+              }
+              #newLanguageMenu a {
+                display: flex;
+                align-items: center;
+                padding: 10px 12px;
+                color: white;
+                text-decoration: none;
+                transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                position: relative;
+                font-size: 0.85rem;
+                border-bottom: 1px solid rgba(177, 76, 200, 0.15);
+                letter-spacing: 0.2px;
+                width: 100%;
+                /* إزالة التأثيرات المتعارضة مع ثبات الأيقونة */
+              }
+              #newLanguageMenu a:last-child {
+                border-bottom: none;
+              }
+              #newLanguageMenu a:hover {
+                background-color: rgba(177, 76, 200, 0.3);
+                padding-left: 18px;
+                letter-spacing: 0.5px;
+              }
+              #newLanguageMenu a.active {
+                background-color: rgba(177, 76, 200, 0.5);
+                font-weight: bold;
+              }
+              #newLanguageMenu a::before {
+                margin-right: 10px;
+                font-size: 1.2em;
+              }
+              /* إضافة أعلام اللغات */
+              #newLanguageMenu a[data-lang="ar"]::before {
+                content: '🇸🇦';
+                margin-right: 10px;
+                font-size: 1.2em;
+              }
+              #newLanguageMenu a[data-lang="en"]::before {
+                content: '🇺🇸';
+                margin-right: 10px;
+                font-size: 1.2em;
+              }
+              #newLanguageMenu a[data-lang="fr"]::before {
+                content: '🇫🇷';
+                margin-right: 10px;
+                font-size: 1.2em;
+              }
+              #newLanguageMenu a[data-lang="es"]::before {
+                content: '🇪🇸';
+                margin-right: 10px;
+                font-size: 1.2em;
+              }
+              
+              /* علامة الاختيار للغة النشطة */
+              #newLanguageMenu a.active::after {
+                content: '✓';
+                position: absolute;
+                right: 15px;
+                color: #4CAF50;
+                font-weight: bold;
+              }
+              
+              /* نمط للغات غير المدعومة حاليًا */
+              #newLanguageMenu a.lang-disabled {
+                opacity: 0.7;
+                background: rgba(0, 0, 0, 0.15);
+                position: relative;
+              }
+              
+              /* تثبيت أيقونة الساعة الرملية في مكان ثابت */
+              #newLanguageMenu a.lang-disabled::after {
+                content: '⏳';
+                position: absolute !important;
+                right: 8px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                color: rgba(255, 255, 255, 0.85) !important;
+                font-size: 1.1em !important;
+                text-shadow: 0 0 3px rgba(0, 0, 0, 0.5) !important;
+                pointer-events: none;
+              }
+              
+              /* إصلاح موضع الساعة الرملية في RTL */
+              html[dir="rtl"] #newLanguageMenu a.lang-disabled::after {
+                right: 8px !important;
+                left: auto !important;
+              }
+              /* تأثير خاص للزر والقائمة على الأجهزة المحمولة */
+              @media (max-width: 768px) {
+                .lang-switcher-new {
+                  background: linear-gradient(135deg, rgba(177, 76, 200, 0.8), rgba(0, 230, 255, 0.6));
+                  font-weight: 600;
+                  padding: 7px 14px;
+                  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+                }
+                #newLanguageMenu {
+                  width: 10px;
+                  border-radius: 15px;
+                }
+              }
+              .lang-icon {
+                margin-right: 6px;
+                font-size: 1.1em;
+              }
+              /* دعم RTL للزر الجديد */
+              html[dir="rtl"] .lang-icon {
+                margin-right: 0;
+                margin-left: 6px;
+              }
+              /* تثبيت موضع الأيقونات وعلامة الاختيار بغض النظر عن اتجاه اللغة */
+              html[dir="rtl"] #newLanguageMenu a::before {
+                margin-right: 10px;
+                margin-left: 0;
+              }
+              html[dir="rtl"] #newLanguageMenu a.active::after {
+                right: 15px;
+                left: auto;
+              }
+              html[dir="rtl"] #newLanguageMenu {
+                right: auto;
+                left: 0; /* نحافظ على موضع القائمة */
+                text-align: left; /* تثبيت محاذاة النص */
+              }
+              html[dir="rtl"] #newLanguageMenu a:hover {
+                padding-left: 18px;
+                padding-right: 15px;
+              }
+            </style>
+            <button id="newLangToggleBtn" class="lang-switcher-new" onclick="toggleNewLanguageMenu(event)">
+              <span class="lang-icon">🌐</span>
+              <span data-i18n="language">اللغة</span> <span class="down-arrow">&#9660;</span>
+            </button>
+            <div id="newLanguageMenu">
+              <a href="#" data-lang="ar" class="lang-option" onclick="window.switchLanguageNew('ar')">العربية</a>
+              <a href="#" data-lang="en" class="lang-option" onclick="window.switchLanguageNew('en')">English</a>
+              <!-- اللغات الإضافية مضافة للتوضيح فقط - ستظهر في القائمة لكن لن تعمل حتى يتم إضافة الترجمات الخاصة بها -->
+              <a href="#" data-lang="fr" class="lang-option lang-disabled" onclick="showLanguageTodo('fr')">Français</a>
+              <a href="#" data-lang="es" class="lang-option lang-disabled" onclick="showLanguageTodo('es')">Español</a>
+            </div>
+            <script>
+              // إضافة وظيفة لإظهار رسالة "قريبًا" للغات غير المدعومة حاليًا
+              function showLanguageTodo(lang) {
+                event.preventDefault();
+                const langNames = {
+                  'fr': 'الفرنسية',
+                  'es': 'الإسبانية'
+                };
+                const currentLang = localStorage.getItem('language') || 'ar';
+                const message = currentLang === 'ar' 
+                  ? `سيتم دعم اللغة ${langNames[lang]} قريبًا!` 
+                  : `${lang === 'fr' ? 'French' : 'Spanish'} language support coming soon!`;
+                alert(message);
+              }
+            </script>
+            <script>
+              // تهيئة قائمة اللغة الجديدة
+              function initNewLanguageMenu() {
+                // تعيين اللغة الحالية كنشطة
+                const currentLang = localStorage.getItem('language') || 'ar';
+                document.querySelectorAll('#newLanguageMenu a').forEach(item => {
+                  if (item.getAttribute('data-lang') === currentLang) {
+                    item.classList.add('active');
+                  } else {
+                    item.classList.remove('active');
+                  }
+                });
+                
+                // تحديث نص زر اللغة
+                const langBtnText = document.querySelector('#newLangToggleBtn span[data-i18n="language"]');
+                if (langBtnText) {
+                  langBtnText.textContent = currentLang === 'ar' ? 'اللغة' : 'Language';
+                }
+              }
+              
+              // دالة تبديل عرض قائمة اللغة الجديدة
+              function toggleNewLanguageMenu(event) {
+                // منع السلوك الافتراضي
+                event.preventDefault();
+                event.stopPropagation();
+                
+                const btn = document.getElementById('newLangToggleBtn');
+                const menu = document.getElementById('newLanguageMenu');
+                
+                if (menu.style.display === 'block') {
+                  menu.style.display = 'none';
+                } else {
+                  // مسح أي أنماط سابقة قد تتسبب في المشاكل
+                  menu.removeAttribute('style');
+                  
+                  // وضع عنصر خفي مؤقت لقياس أبعاد القائمة
+                  menu.style.visibility = 'hidden';
+                  menu.style.display = 'block';
+                  menu.style.position = 'fixed';
+                  
+                  // حساب موضع القائمة بالنسبة للزر
+                  const btnRect = btn.getBoundingClientRect();
+                  const navContainer = document.querySelector('.nav-container');
+                  const navRect = navContainer.getBoundingClientRect();
+                  
+                  // استخدام نقطة مرجعية أكثر استقرارًا
+                  const screenWidth = window.innerWidth;
+                  const screenHeight = window.innerHeight;
+                  
+                  // تحديد موضع القائمة - تخطى أي محتوى آخر
+                  menu.style.zIndex = '9999';
+
+                  // عرض القائمة أسفل الزر مباشرة
+                  menu.style.top = (btnRect.bottom + 5) + 'px';
+                  menu.style.bottom = 'auto';
+                  menu.style.left = (btnRect.left) + 'px';
+                  menu.style.right = 'auto';
+                  
+                  // عرض القائمة المخفية لقياس أبعادها الحقيقية
+                  const menuRect = menu.getBoundingClientRect();
+                  
+                  // ضمان بقاء القائمة داخل حدود الشاشة
+                  if (menuRect.right > screenWidth) {
+                    menu.style.left = 'auto';
+                    menu.style.right = '10px';
+                  }
+                  
+                  if (menuRect.left < 0) {
+                    menu.style.left = '10px';
+                    menu.style.right = 'auto';
+                  }
+                  
+                  if (menuRect.bottom > screenHeight) {
+                    menu.style.top = 'auto';
+                    menu.style.bottom = '10px';
+                  }
+                  
+                  // استخدام قوة الحوسبة لتأكيد ظهور القائمة (ابتكاري)
+                  menu.style.visibility = 'visible';
+                  menu.style.opacity = '0';
+                  
+                  // رفع الأولوية باستخدام تأجيل لضمان تقديم التغييرات
+                  setTimeout(() => {
+                    menu.style.opacity = '1';
+                  }, 10);
+                }
+              }
+              
+              // دالة تبديل اللغة الجديدة
+              function switchLanguageNew(lang) {
+                // تخزين اللغة
+                localStorage.setItem('language', lang);
+                
+                // تحديث اتجاه الصفحة
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                
+                // إغلاق القائمة
+                const menu = document.getElementById('newLanguageMenu');
+                menu.style.display = 'none';
+                
+                // تحديث حالة الخيارات في الزر الجديد
+                document.querySelectorAll('#newLanguageMenu a').forEach(item => {
+                  if (item.getAttribute('data-lang') === lang) {
+                    item.classList.add('active');
+                  } else {
+                    item.classList.remove('active');
+                  }
+                });
+                
+                // تحديث حالة الخيارات في الزر الأصلي للحفاظ على المزامنة
+                document.querySelectorAll('#indexLanguageMenu a').forEach(item => {
+                  if (item.getAttribute('data-lang') === lang) {
+                    item.classList.add('active');
+                  } else {
+                    item.classList.remove('active');
+                  }
+                });
+                
+                // تحديث نص زر اللغة الجديد
+                const langBtnText = document.querySelector('#newLangToggleBtn span[data-i18n="language"]');
+                if (langBtnText) {
+                  langBtnText.textContent = lang === 'ar' ? 'اللغة' : 'Language';
+                }
+                
+                // تحديث نص زر اللغة الأصلي
+                const originalLangText = document.querySelector('#indexLangToggleBtn span[data-i18n="language"]');
+                if (originalLangText) {
+                  originalLangText.textContent = lang === 'ar' ? 'اللغة' : 'Language';
+                }
+                
+                // استدعاء دالة تحديث واجهة المستخدم من ملف الترجمات
+                try {
+                  if (typeof updateUILanguage === 'function') {
+                    updateUILanguage();
+                  } else {
+                    import('./translations.js').then(module => {
+                      if (typeof module.updateUILanguage === 'function') {
+                        module.updateUILanguage();
+                      }
+                    });
+                  }
+                } catch (e) {
+                  console.error('خطأ في استدعاء دالة تحديث واجهة المستخدم:', e);
+                }
+              }
+              
+              // إغلاق القائمة عند النقر في أي مكان آخر
+              document.addEventListener('click', function(event) {
+                const menu = document.getElementById('newLanguageMenu');
+                const btn = document.getElementById('newLangToggleBtn');
+                
+                // تحقق ما إذا كان الهدف ليس الزر أو القائمة
+                if (event.target !== btn && !btn.contains(event.target) && 
+                    !menu.contains(event.target)) {
+                  menu.style.display = 'none';
+                }
+              });
+              
+              // إغلاق القائمة عند التمرير
+              window.addEventListener('scroll', function() {
+                const menu = document.getElementById('newLanguageMenu');
+                if (menu && menu.style.display === 'block') {
+                  menu.style.display = 'none';
+                }
+              });
+              
+              // إغلاق القائمة عند تغيير حجم النافذة
+              window.addEventListener('resize', function() {
+                const menu = document.getElementById('newLanguageMenu');
+                if (menu && menu.style.display === 'block') {
+                  menu.style.display = 'none';
+                }
+              });
+              
+              // تهيئة قائمة اللغة الجديدة عند تحميل الصفحة
+              document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(initNewLanguageMenu, 500);
+              });
+            </script>
+          </li>
+        </ul>
+        <div style="clear: both;"></div>
+      </nav>
+    </div>
+  </div>
+
+  <!-- القسم الرئيسي للصفحة -->
+  <section class="hero">
+    <img class="styleImglogo" src="Imges/Boy Cole _ Anime pictures .jpg" alt="Picture of a wonderful boy" />
+    <div class="herotext">
+      <h3 class="abouttext1" data-i18n="welcome">Welcome!</h3>
+      <p class="abouttext2" data-i18n="intro">Here you will find different types of wallpapers,</p> <br/> <br/>
+      <h4 class="abouttext3" data-i18n="enjoy">... enjoy!</h4>
+      <div class="start-button-container">
+        <a class="btn enhanced-btn" href="#" onclick="checkAuthAndRedirect('simple-gallery.html'); return false;" id="startButton" data-i18n="start">Start</a>
+      </div>
+      <style>
+        /* أنماط محسّنة لزر البدء */
+        .enhanced-btn {
+          background: linear-gradient(135deg, rgba(177, 76, 200, 0.8), rgba(0, 230, 255, 0.6));
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(177, 76, 200, 0.3);
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          padding: 12px 50px;
+        }
+        
+        .enhanced-btn:hover {
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 630px rgba(177, 76, 200, 0.5);
+          background: linear-gradient(135deg, rgba(177, 76, 200, 0.9), rgba(0, 230, 255, 0.8));
+          border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .enhanced-btn:active {
+          transform: translateY(1px);
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+      </style>
+    </div>
+    <img class="styleImglogo" src="Imges/Girl Cole _Anime style .jpg" alt="picture of a beautiful girl" />
+  </section>
+
+    <hr class="hr2" />
+  
+  <!-- قسم التواصل -->
+  <section id="communication">
+    <ul class="endbag">
+      <li>
+        <p class="footer-text" data-i18n="siteCreated">Site created by [AK]</p>
+      </li>
+      <li>
+        <p class="footer-text" data-i18n="development">The site is still under development.</p>
+      </li>
+      <li>
+        <p class="footer-text" data-i18n="phoneNumber">Phone number: coming soon.</p>
+      </li>
+      <li>
+        <p class="footer-text" data-i18n="email">Email: coming soon.</p>
+      </li>
+      <li>
+        <p class="footer-text" data-i18n="support">Support</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- مودال تسجيل الدخول -->
+  <div id="signin-modal" class="modal">
+    <div class="modal-content">
+      <h2 data-i18n="signIn">Sign In</h2>
+      <form id="signin-form" onsubmit="window.handleSignIn(event); return false;">
+        <input type="email" id="signin-email" placeholder="Email" required>
+        <input type="password" id="signin-password" placeholder="Password" required>
+        <button type="submit" data-i18n="signIn">Sign In</button>
+      </form>
+      <div class="modal-footer">
+        <span data-i18n="dontHaveAccount">Don't have an account?</span>
+        <a href="#" onclick="document.getElementById('signin-modal').style.display='none'; document.getElementById('signup-modal').style.display='block'; return false;" data-i18n="createAccount">Create account</a>
+      </div>
+      <button class="close-btn" onclick="document.getElementById('signin-modal').style.display='none'">&times;</button>
+    </div>
+  </div>
+
+  <!-- مودال إنشاء حساب -->
+  <div id="signup-modal" class="modal">
+    <div class="modal-content">
+      <h2 data-i18n="signUp">Sign Up</h2>
+      <form id="signup-form" onsubmit="window.handleSignUp(event); return false;">
+        <input type="text" id="signup-username" placeholder="Username" required>
+        <input type="email" id="signup-email" placeholder="Email" required>
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <button type="submit" data-i18n="signUp">Sign Up</button>
+      </form>
+      <div class="modal-footer">
+        <span data-i18n="alreadyHaveAccount">Already have an account?</span>
+        <a href="#" onclick="document.getElementById('signup-modal').style.display='none'; document.getElementById('signin-modal').style.display='block'; return false;" data-i18n="loginToAccount">Sign in</a>
+      </div>
+      <button class="close-btn" onclick="document.getElementById('signup-modal').style.display='none'">&times;</button>
+    </div>
+  </div>
+
+  <!-- سكريبت إعادة التوجيه ومعالجة تسجيل الدخول/إنشاء حساب -->
+  <script type="module">
+    import {getCurrentUser, loginUser, registerUser} from './Storage.js';
+
+
+
+    window.checkAuthAndRedirect = function (path) {
+      const user = getCurrentUser();
+      if (!user) {
+        document.getElementById('signin-modal').style.display = 'block';
+        return false;
+      }
+      window.location.href = path;
+      return true;
+    };
+    
+    // دالة تسجيل الدخول (متاحة عالمياً)
+    window.handleSignIn = function(e) {
+      e.preventDefault();
+      const email = document.getElementById('signin-email').value;
+      const password = document.getElementById('signin-password').value;
+
+      if (!email || !password) {
+        const currentLang = localStorage.getItem('language') || 'ar';
+        const message = currentLang === 'ar' 
+          ? 'الرجاء إدخال البريد الإلكتروني وكلمة المرور' 
+          : 'Please enter email and password';
+        alert(message);
+        return;
+      }
+
+      try {
+        loginUser(email, password);
+        const modal = document.getElementById('signin-modal');
+        if (modal) modal.style.display = 'none';
+        updateAuthUI();
+        window.location.href = 'simple-gallery.html';
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+    
+    // دالة إنشاء حساب (متاحة عالمياً)
+    window.handleSignUp = function(e) {
+      e.preventDefault();
+      const username = document.getElementById('signup-username')?.value;
+      const email = document.getElementById('signup-email')?.value;
+      const password = document.getElementById('signup-password')?.value;
+
+      if (!username || !email || !password) {
+        const currentLang = localStorage.getItem('language') || 'ar';
+        const message = currentLang === 'ar' 
+          ? 'الرجاء إدخال جميع البيانات المطلوبة' 
+          : 'Please enter all required fields';
+        alert(message);
+        return;
+      }
+
+      try {
+        registerUser(username, email, password);
+        const modal = document.getElementById('signup-modal');
+        if (modal) modal.style.display = 'none';
+        
+        // تعيين اسم المستخدم يدويًا في العنصر
+        const userNameSpan = document.getElementById('user-name');
+        if (userNameSpan) {
+          userNameSpan.textContent = username;
+          userNameSpan.style.display = 'block';
+        }
+        
+        updateNavUI(); // استخدام الدالة الموجودة في نطاق الصفحة
+        window.location.href = 'simple-gallery.html';
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+    
+    // جعل الدالة updateAuthUI متاحة عالمياً
+    window.updateAuthUI = function() {
+      const user = getCurrentUser();
+      const userNameSpan = document.getElementById('user-name');
+      const authButtons = document.querySelectorAll('.auth-buttons');
+      const userButtons = document.querySelectorAll('.user-buttons');
+      
+      console.log("تحديث واجهة المستخدم:", user);
+
+      // تحديث اسم المستخدم في القائمة الجانبية
+      if (userNameSpan) {
+        if (user) {
+          // تبسيط طريقة العرض بدون رسائل ترحيبية لمساحة أكبر
+          userNameSpan.textContent = user.username || 'مستخدم';
+          userNameSpan.style.fontSize = '15px';
+          userNameSpan.style.fontWeight = 'bold';
+          userNameSpan.style.color = '#fff';  // لون أبيض واضح
+          console.log("تم تعيين اسم المستخدم:", user.username);
+        } else {
+          userNameSpan.textContent = 'زائر';
+          userNameSpan.style.color = '#bbb'; // لون رمادي فاتح للزائر
+          console.log("تم تعيين اسم المستخدم الافتراضي: زائر");
+        }
+        userNameSpan.style.display = 'block';
+        userNameSpan.style.width = '100%';
+        userNameSpan.style.overflow = 'hidden';
+        userNameSpan.style.textOverflow = 'ellipsis';
+      }
+
+      // تحديث أزرار تسجيل الدخول
+      if (user) {
+        authButtons.forEach(btn => btn.style.display = 'none');
+        userButtons.forEach(btn => btn.style.display = 'inline-block');
+      } else {
+        authButtons.forEach(btn => btn.style.display = 'inline-block');
+        userButtons.forEach(btn => btn.style.display = 'none');
+      }
+    };
+  </script>
+  
+  <!-- سكريبت تبديل اللغة والواجهة (مع إضافة وظائف جديدة) -->
+  <script>
+    // تم نقل دوال تبديل اللغة إلى ملف language-functions.js
+  </script>
+  
+  <!-- استيراد ملفات الجافاسكريبت الأخرى -->
+  <script type="module" src="script.js"></script>
+  <script type="module">
+    import { switchLanguageNew, showLanguageTodo } from './unified-language.js';
+    // جعل الوظائف متاحة عالمياً
+    window.switchLanguageNew = switchLanguageNew;
+    window.showLanguageTodo = showLanguageTodo;
+  </script>
+  <script type="module" src="unified-language.js"></script>
+  <script src="lazyLoading.js"></script>
+  <script src="registerServiceWorker.js"></script>
+  
+  <!-- سكريبت تحديث واجهة المستخدم وإدارة الحساب -->
+  <script type="module">
+    import {getCurrentUser, getUserAvatar} from './Storage.js';
+    import {updateUILanguage} from './unified-language.js';
+    
+    // تحديث واجهة المستخدم بناءً على حالة تسجيل الدخول
+    // جعل الدالة متاحة عالمياً
+    window.updateNavUI = function() {
+      const user = getCurrentUser();
+      const authButtons = document.querySelectorAll('.auth-buttons');
+      const userButtons = document.querySelectorAll('.user-buttons:not(.language-btn-container)');
+      const languageBtn = document.querySelector('.language-btn-container');
+      const navUserName = document.getElementById('nav-user-name');
+      const userNameContainer = document.getElementById('user-name-container');
+      const userAvatarSmall = document.getElementById('user-avatar-small');
+      
+      // تأكد من أن زر اللغة مرئي دائمًا
+      if (languageBtn) {
+        languageBtn.style.display = 'block';
+      }
+    
+      if (user) {
+        // تحديث الصورة الشخصية
+        const savedAvatar = getUserAvatar();
+        if (savedAvatar && userAvatarSmall) {
+          userAvatarSmall.src = savedAvatar;
+        }
+    
+        authButtons.forEach(btn => btn.style.display = 'none');
+        userButtons.forEach(btn => btn.style.display = 'inline-block');
+        
+        // التأكد من إظهار الحاوية بشكل صريح
+        if (userNameContainer) {
+          userNameContainer.style.display = 'flex';
+          userNameContainer.style.visibility = 'visible';
+          userNameContainer.style.opacity = '1';
+        }
+        
+        if (navUserName) {
+          navUserName.innerHTML = `<span style="color: #4CAF50; font-weight: bold;">Hi!</span> ${user.username}`;
+        }
+      } else {
+        authButtons.forEach(btn => btn.style.display = 'inline-block');
+        userButtons.forEach(btn => btn.style.display = 'none');
+        if (userNameContainer) userNameContainer.style.display = 'none';
+      }
+    }
+    
+    // تهيئة واجهة اللغة - تم التعطيل لتجنب التعارض
+    function initializeLanguageUI() {
+      // تم تعطيل هذه الدالة لتجنب التعارض مع initLanguageDropdown
+      console.log('تهيئة اللغة - تم الاستبدال بالدالة الأخرى');
+    }
+    
+    // عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', () => {
+      // تحديث واجهة المستخدم للتنقل
+      updateNavUI();
+      
+      // استدعاء دالة لتهيئة اللغة الحالية
+      initializeLanguageUI();
+      
+      // تحديث اللغة في واجهة المستخدم
+      updateUILanguage();
+      
+      // تهيئة ميزة المشاركة الاجتماعية
+      if (typeof initSocialSharing === 'function') {
+        try {
+          initSocialSharing();
+          console.log('🌟 Social sharing feature initialized on index page!');
+        } catch (error) {
+          console.error('Error initializing social sharing feature:', error);
+        }
+      }
+    });
+    
+
+  </script>
+  
+
+  <!-- تم حذف ملف الوظائف المشتركة لأنه غير مستخدم -->
+</body>
+
+</html>

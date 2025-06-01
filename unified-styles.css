@@ -1,0 +1,903 @@
+/**
+ * unified-styles.css
+ * ملف أنماط موحد يجمع بين عدة ملفات CSS
+ * يتضمن تنسيقات من: animations.css, language-dropdown.css, socialSharing.css
+ */
+
+/*====================================
+  الجزء 1: تأثيرات حركية (animations.css)
+=====================================*/
+
+/* تأثيرات تفاعلية للأزرار */
+.scaled {
+    animation: scale-effect 0.3s ease-in-out;
+  }
+  
+  @keyframes scale-effect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  
+  .pulse {
+    animation: pulse-effect 0.5s ease-in-out;
+  }
+  
+  @keyframes pulse-effect {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.3); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  
+  /* تأثيرات تحديث عداد الإعجابات */
+  .likes-count.updated {
+    animation: highlight 0.5s ease-in-out;
+  }
+  
+  @keyframes highlight {
+    0% { color: white; }
+    50% { color: #ff4d4d; transform: scale(1.2); }
+    100% { color: white; }
+  }
+  
+  /* تحسين مظهر عداد الإعجابات - في منتصف الكارد على اليسار */
+  .likes-counter {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    padding: 3px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
+  
+  /* إضافة حاوية flexbox للأزرار في منتصف الكارد على اليسار */
+  .left-buttons-container {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+  }
+  
+  .likes-counter:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .like-icon {
+    margin-right: 4px;
+  }
+  
+  /* تحسينات أزرار البطاقة */
+  .btn-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    padding: 5px;
+    height: 45px;
+  }
+  
+  .image-card:hover .btn-container {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .btn, .favorite-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.5);
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.2s, background-color 0.2s;
+  }
+  
+  .favorite-btn {
+    color: white;
+    font-size: 18px;
+    line-height: 1;
+  }
+  
+  .btn:hover, .favorite-btn:hover {
+    transform: scale(1.1);
+    background-color: rgba(0,0,0,0.7);
+  }
+  
+  .favorite-btn.active {
+    background-color: #ff4d4d;
+  }
+  
+  .set-avatar-btn i {
+    font-size: 16px;
+  }
+  
+  /* تحسينات لعرض الصورة المكبرة */
+  .image-tooltip {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .image-tooltip.active {
+    opacity: 1;
+  }
+  
+  .close-btn {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .close-btn:hover {
+    background-color: rgba(255, 0, 0, 0.7);
+  }
+  
+  .control-btn {
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  
+  .control-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .control-btn.download-btn:hover {
+    background-color: #4CAF50;
+  }
+  
+  .control-btn.set-avatar-btn:hover {
+    background-color: #2196F3;
+  }
+  
+  .control-btn.favorite-btn:hover {
+    background-color: #ff4d4d;
+  }
+  
+  /*======================================
+    الجزء 2: تنسيقات قائمة اللغة (language-dropdown.css)
+  =======================================*/
+  
+  /* تنسيق حاوية زر اللغة */
+  .language-btn-container {
+    display: block;
+  }
+  
+  /* تصميم قائمة اللغة المنسدلة */
+  .language-dropdown {
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+  
+  /* تصميم زر اللغة */
+  #langToggleBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: rgba(58, 16, 69, 0.5);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  #langToggleBtn:hover {
+    background-color: rgba(177, 76, 200, 0.7);
+    transform: translateY(-2px);
+  }
+  
+  /* تنسيق السهم في زر اللغة */
+  .down-arrow {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 0.85em;
+    transition: transform 0.3s ease;
+  }
+  
+  /* تدوير السهم عند فتح القائمة */
+  .language-dropdown.open .down-arrow {
+    transform: rotate(180deg);
+  }
+  
+  /* تصميم محتوى القائمة المنسدلة للغة */
+  .language-dropdown-content {
+    position: absolute !important;
+    top: 110% !important;
+    right: 0 !important;
+    display: none !important; /* إخفاء القائمة افتراضياً - سيتم تجاوزه باستخدام JavaScript */
+    min-width: 140px !important;
+    background: rgba(26, 11, 32, 0.95) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4) !important;
+    z-index: 2000 !important;
+    padding: 8px 0 !important;
+    margin-top: 3px !important;
+    border: 1px solid rgba(177, 76, 200, 0.3) !important;
+  }
+  
+  /* تصميم خيارات القائمة المنسدلة */
+  .language-dropdown-content a {
+    display: flex;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.2s ease;
+    position: relative;
+    font-size: 0.9rem;
+    align-items: center;
+  }
+  
+  /* إضافة أيقونات للغات */
+  .language-dropdown-content a::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  
+  /* أيقونة اللغة الإنجليزية */
+  .language-dropdown-content a[data-lang="en"]::before {
+    content: '🇺🇸';
+  }
+  
+  /* أيقونة اللغة العربية */
+  .language-dropdown-content a[data-lang="ar"]::before {
+    content: '🇸🇦';
+  }
+  
+  /* تصميم حالة التحويم لخيارات اللغة */
+  .language-dropdown-content a:hover {
+    background-color: rgba(177, 76, 200, 0.3);
+  }
+  
+  .language-dropdown-content a:hover::before {
+    opacity: 1;
+  }
+  
+  /* تصميم الخيار النشط في قائمة اللغة */
+  .language-dropdown-content a.active {
+    background-color: rgba(177, 76, 200, 0.5);
+    font-weight: bold;
+  }
+  
+  /* إضافة علامة اختيار للغة المحددة */
+  .language-dropdown-content a.active::after {
+    content: '✓';
+    position: absolute;
+    right: 12px;
+    color: #4CAF50;
+    font-weight: bold;
+  }
+  
+  /* تصميم اتجاه النصوص في قائمة اللغة */
+  .language-dropdown-content a[data-lang="en"] {
+    text-align: left;
+  }
+  
+  .language-dropdown-content a[data-lang="ar"] {
+    text-align: right;
+  }
+  
+  /* تصميم قائمة اللغة للغة العربية */
+  html[dir="rtl"] .language-dropdown-content {
+    left: 0;
+    right: auto;
+  }
+  
+  /* أنماط زر اللغة المحسن الجديد */
+  .language-btn-container-new {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  .lang-switcher-new {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, rgba(177, 76, 200, 0.7), rgba(0, 230, 255, 0.5));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+    text-align: center;
+  }
+  
+  .lang-switcher-new:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, rgba(177, 76, 200, 0.9), rgba(0, 230, 255, 0.7));
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .lang-switcher-new:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  .lang-icon {
+    margin-right: 8px;
+    font-size: 1.2em;
+    opacity: 0.95;
+  }
+  
+  /* دعم RTL للزر الجديد */
+  html[dir="rtl"] .lang-icon {
+    margin-right: 0;
+    margin-left: 8px;
+  }
+  
+  #newLanguageMenu {
+    display: none;
+    position: fixed;
+    margin-top: 10px;
+    right: auto;
+    background: rgba(26, 11, 32, 0.98);
+    min-width: 180px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 3px 10px rgba(177, 76, 200, 0.3);
+    z-index: 100000;
+    border: 2px solid rgba(177, 76, 200, 0.5);
+    padding: 0;
+    overflow: visible;
+    animation: fadeIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform, opacity;
+    pointer-events: auto !important; /* التأكد من أن الأحداث تعمل على القائمة */
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes glowPulse {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+  
+  @keyframes gradientMove {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  #newLanguageMenu a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(177, 76, 200, 0.2);
+    letter-spacing: 0.3px;
+  }
+  
+  #newLanguageMenu a:last-child {
+    border-bottom: none;
+  }
+  
+  #newLanguageMenu a:hover {
+    background-color: rgba(177, 76, 200, 0.3);
+    padding-left: 18px;
+    letter-spacing: 0.5px;
+  }
+  
+  #newLanguageMenu a.active {
+    background-color: rgba(177, 76, 200, 0.5);
+    font-weight: bold;
+  }
+  
+  #newLanguageMenu a::before {
+    margin-right: 10px;
+    font-size: 1.2em;
+  }
+  
+  #newLanguageMenu a[data-lang="ar"]::before {
+    content: '🇸🇦';
+  }
+  
+  #newLanguageMenu a[data-lang="en"]::before {
+    content: '🇺🇸';
+  }
+  
+  #newLanguageMenu a[data-lang="fr"]::before {
+    content: '🇫🇷';
+  }
+  
+  #newLanguageMenu a[data-lang="es"]::before {
+    content: '🇪🇸';
+  }
+  
+  #newLanguageMenu a.active::after {
+    content: '✓';
+    position: absolute;
+    right: 15px;
+    color: #4CAF50;
+    font-weight: bold;
+  }
+  
+  /* نمط للغات غير المدعومة حاليًا */
+  #newLanguageMenu a.lang-disabled {
+    opacity: 0.7;
+    background: rgba(0, 0, 0, 0.15);
+  }
+  
+  #newLanguageMenu a.lang-disabled::after {
+    content: '⏳';
+    position: absolute;
+    right: 15px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  html[dir="rtl"] #newLanguageMenu a.lang-disabled::after {
+    right: auto;
+    left: 15px;
+  }
+  
+  html[dir="rtl"] #newLanguageMenu a::before {
+    margin-right: 0;
+    margin-left: 10px;
+  }
+  
+  html[dir="rtl"] #newLanguageMenu a.active::after {
+    right: auto;
+    left: 15px;
+  }
+  
+  html[dir="rtl"] #newLanguageMenu {
+    right: auto;
+    left: 0;
+    text-align: right;
+  }
+  
+  html[dir="rtl"] #newLanguageMenu a:hover {
+    padding-left: 15px;
+    padding-right: 18px;
+  }
+  
+  /* تأثير خاص للزر والقائمة على الأجهزة المحمولة */
+  @media (max-width: 768px) {
+    .lang-switcher-new {
+      background: linear-gradient(135deg, rgba(177, 76, 200, 0.8), rgba(0, 230, 255, 0.6));
+      font-weight: 600;
+      padding: 7px 14px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    }
+    #newLanguageMenu {
+      width: 200px;
+      border-radius: 15px;
+    }
+  }
+  
+  /*======================================
+    الجزء 3: تنسيقات المشاركة الاجتماعية (socialSharing.css)
+  =======================================*/
+  
+  /* تنسيق النافذة المنبثقة للمشاركة */
+  .social-sharing-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+  }
+  
+  .social-sharing-modal.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* حاوية المحتوى */
+  .social-sharing-content {
+    background-color: #1a1a1a;
+    max-width: 90%;
+    width: 700px;
+    border-radius: 12px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.7);
+    padding: 25px;
+    position: relative;
+    transform: translateY(30px);
+    transition: transform 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: auto;
+    max-height: 90vh;
+    color: #fff;
+    font-family: 'Cairo', 'Roboto', sans-serif;
+  }
+  
+  [lang="ar"] .social-sharing-content {
+    direction: rtl;
+  }
+  
+  .social-sharing-modal.active .social-sharing-content {
+    transform: translateY(0);
+  }
+  
+  /* زر الإغلاق */
+  .social-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(255, 75, 75, 0.2);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    transition: all 0.2s ease;
+    font-size: 16px;
+  }
+  
+  [lang="ar"] .social-close-btn {
+    right: auto;
+    left: 15px;
+  }
+  
+  .social-close-btn:hover {
+    background-color: rgba(255, 75, 75, 0.5);
+  }
+  
+  /* عنوان النافذة */
+  .social-sharing-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(150, 50, 250, 0.3);
+  }
+  
+  /* الأقسام الرئيسية */
+  .social-sharing-section {
+    margin-bottom: 25px;
+  }
+  
+  .social-sharing-section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #ddd;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 8px;
+  }
+  
+  /* معاينة الصورة */
+  .image-preview-container {
+    max-width: 100%;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    position: relative;
+  }
+  
+  .preview-canvas-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .preview-canvas {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* خيارات الإطارات */
+  .frame-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+    justify-content: center;
+  }
+  
+  .frame-option {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  
+  .frame-option img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .frame-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  }
+  
+  .frame-option.active {
+    border-color: #4CAF50;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+  }
+  
+  .frame-option-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    text-align: center;
+    font-size: 10px;
+    padding: 3px 0;
+  }
+  
+  /* خيارات الإطار المخصص */
+  .custom-frame-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  @media (min-width: 768px) {
+    .custom-frame-options {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .custom-frame-option {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .custom-frame-label {
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #ccc;
+  }
+  
+  .custom-frame-input {
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 6px 10px;
+    color: #fff;
+    font-size: 14px;
+  }
+  
+  .custom-color-input {
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  /* أزرار الشبكات الاجتماعية */
+  .social-networks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  
+  .social-network-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    transition: all 0.2s ease;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .social-network-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+  }
+  
+  .social-network-btn.facebook {
+    background-color: #3b5998;
+  }
+  
+  .social-network-btn.twitter {
+    background-color: #1da1f2;
+  }
+  
+  .social-network-btn.pinterest {
+    background-color: #bd081c;
+  }
+  
+  .social-network-btn.whatsapp {
+    background-color: #25d366;
+  }
+  
+  .social-network-btn.telegram {
+    background-color: #0088cc;
+  }
+  
+  .social-network-btn.instagram {
+    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+  }
+  
+  /* أزرار التصرف */
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .action-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .download-button {
+    background-color: #4CAF50;
+  }
+  
+  .download-button:hover {
+    background-color: #3d9c40;
+  }
+  
+  .action-button i {
+    font-size: 16px;
+  }
+  
+  /* التعليمات */
+  .instructions {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+    padding-top: 15px;
+    font-size: 12px;
+    color: #aaa;
+  }
+  
+  /* تحسينات للهواتف المحمولة */
+  @media (max-width: 767px) {
+    .social-sharing-content {
+      padding: 15px;
+      max-width: 95%;
+    }
+    
+    .image-preview-container {
+      height: 250px;
+    }
+    
+    .frame-option {
+      width: 60px;
+      height: 60px;
+    }
+    
+    .social-network-btn {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+    }
+    
+    .custom-frame-options {
+      grid-template-columns: 1fr;
+    }
+    
+    .social-sharing-title {
+      font-size: 1.3rem;
+    }
+  }
+  
+  /* تأثيرات نقل للعناصر */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .social-sharing-content > * {
+    animation: fadeInUp 0.3s ease forwards;
+    opacity: 0;
+  }
+  
+  .social-sharing-content > *:nth-child(1) { animation-delay: 0.1s; }
+  .social-sharing-content > *:nth-child(2) { animation-delay: 0.2s; }
+  .social-sharing-content > *:nth-child(3) { animation-delay: 0.3s; }
+  .social-sharing-content > *:nth-child(4) { animation-delay: 0.4s; }
+  .social-sharing-content > *:nth-child(5) { animation-delay: 0.5s; }
+  
+  /* أنماط للنمط المظلم بالكامل */
+  @media (prefers-color-scheme: dark) {
+    .social-sharing-content {
+      background-color: #121212;
+    }
+    
+    .custom-frame-input {
+      background-color: #222;
+      border-color: #444;
+    }
+  }
