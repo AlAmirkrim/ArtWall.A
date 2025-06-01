@@ -74,7 +74,7 @@ const imageData = [
       url:'',alt:'',category:'',title: {ar:'', en:''},
       url:'',alt:'',category:'',title: {ar:'', en:''},
       url:'',alt:'',category:'',title: {ar:'', en:''},
-      url:'',alt:'',category:'',title: {ar:'', en:''},
+      url:'',alt:'',category:'',title: {ar:'', en:''}},
         {url:'https://cdn.leonardo.ai/users/940f1923-0905-4588-9708-27da4d4c20e7/generations/cc291808-bdea-4f1b-bc62-04323cc75f29/Leonardo_Phoenix_10_A_delicate_holographic_treble_clef_musical_2.jpg',alt:'',category:'',title: {ar:'', en:''}},
     {url:'https://cdn.leonardo.ai/users/940f1923-0905-4588-9708-27da4d4c20e7/generations/cc291808-bdea-4f1b-bc62-04323cc75f29/Leonardo_Phoenix_10_A_delicate_holographic_treble_clef_musical_2.jpg',alt:'',category:'',title: {ar:'', en:''}},
       {url:'https://cdn.leonardo.ai/users/940f1923-0905-4588-9708-27da4d4c20e7/generations/cc291808-bdea-4f1b-bc62-04323cc75f29/Leonardo_Phoenix_10_A_delicate_holographic_treble_clef_musical_2.jpg',alt:'music',category:'creativity',title: {ar:'موسيقي', en:'Music'}},
