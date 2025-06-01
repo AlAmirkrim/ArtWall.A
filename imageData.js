@@ -76,7 +76,7 @@ const imageData = [
       url:'',alt:'',category:'',title: {ar:'', en:''},
       url:'',alt:'',category:'',title: {ar:'', en:''},
       url:'',alt:'',category:'',title: {ar:'', en:''},
-      url:'',alt:'',category:'',title: {ar:'', en:''}},
+      url:'https://cdn.leonardo.ai/users/940f1923-0905-4588-9708-27da4d4c20e7/generations/cc291808-bdea-4f1b-bc62-04323cc75f29/Leonardo_Phoenix_10_A_delicate_holographic_treble_clef_musical_2.jpg',alt:'',category:'',title: {ar:'', en:''}},
       {url:'https://cdn.leonardo.ai/users/940f1923-0905-4588-9708-27da4d4c20e7/generations/cc291808-bdea-4f1b-bc62-04323cc75f29/Leonardo_Phoenix_10_A_delicate_holographic_treble_clef_musical_2.jpg',alt:'music',category:'creativity',title: {ar:'موسيقي', en:'Music'}},
     {url:'https://cdn.leonardo.ai/users/25aec653-01c1-4318-9021-b2c5525acceb/generations/7f7234ea-cb0b-48aa-b5e3-7318a215396e/Leonardo_Phoenix_10_a_mesmerizing_dreamlike_and_vividly_colore_3.jpg?w=512',alt:'colorful clouds',category:'creativity',title:{ar:'سحاب ملون', en:'colorful clouds'}},
       {url:'https://cdn.leonardo.ai/users/940f1923-0905-4588-9708-27da4d4c20e7/generations/12162abc-d406-4613-9cc6-3646418b5400/Leonardo_Anime_XL_A_soft_ombre_gradient_of_pink_hues_reminisce_0.jpg?w=512',alt:'Scent of Serenity',category:'Anime',title:{ar:'همس الزهور', en:'Scent of Serenity'}},
